@@ -1,0 +1,69 @@
+extends ../_template
+
+block variables
+	- var title = 'About'
+	- var map = 'About'
+
+block content
+	body
+		include ../modules/_preloader
+		.container
+			include ../modules/_sandwich
+		.wrapper.about-page
+			header.header.header--back-text
+				.container
+					.header__top-line
+						include ../modules/_social
+					.header__content
+						+avatar("avatar.jpg","Моё фото","Моё фото","avatar")
+						h1.title.title--medium Александр Полянский
+						.title-back--header
+							+title-back("portfolio_header","title-back--header__svg")
+						small.title Личный сайт веб разработчика
+				.down-click
+					i.down-click__ico.i-arrow-down
+			.page-content
+				.triangle
+					include ../core/_svg
+				section.s-about-me
+					.s-about-me__grid
+						.block__about
+							.title-back
+								h2.title.title--extra Обо мне
+								+title-back("about_header")
+							.about__content
+								.avatar-big
+									img.avatar-big__img(src="img/avatar.jpg" title="Моё фото" alt="Моё фото")
+								h3.title.title--extra Кто я
+								p.about__text
+									|Я веб разработчик из Санкт-Петербурга. Мне 22 года. Я занимаюсь разработкой современных сайтов и 
+									|приложений. Родился в Архангельске, в  СПБ живу чуть больше года.  Мне нравится делать интересные и современные проекты.
+									br
+									br
+									|Этот сайт я сделал в рамках обучения в Школе онлайн образования LoftSchool. Чуть позже я освежу в 
+									|нём свой контент. А пока посмотрите, как тут всё классно и красиво!
+					.s-about-me__grid.s-about-me__grid--last
+						.block__skill
+							.skills
+								h3.title.title--extra Чем я могу быть вам полезен
+								p.skills__description Больше всего меня привлекет Frontend разработка, но я также знаком и могу решать не сложные задачина Backend. Но давайте по порядку.
+								include ../modules/_skills 
+				section.s-map
+					#map.map
+					.cover.cover--map
+						.title.title--extra Контакты
+						.contacts
+							ul.contacts__list
+								li.contacts__item 
+									i.i-skype.contacts__icon
+									span.contacts__text eclerrr1
+								li.contacts__item 
+									i.i-mail.contacts__icon
+									span.contacts__text eclerrrr@yandex.ru
+								li.contacts__item 
+									i.i-phone2.contacts__icon
+									span.contacts__text +7 902 197 72 72
+								li.contacts__item 
+									i.i-map_marker.contacts__icon
+									span.contacts__text г. Санкт-Петербург, ул. Парашютная 22
+			include ../modules/_footer 

@@ -1,0 +1,59 @@
+extends ../_template
+
+block variables
+	- var title = 'Home'
+	- var webGL = true
+
+block content
+	body(class='webGL')
+		include ../modules/_preloader
+		.Background
+			canvas.Background-canvas
+		.wrapper.home-page
+			a(href="#").entry Авторизоваться
+			.cover
+				.cover__front
+					.cover__content.cover__content__info
+						+avatar("avatar.jpg","Моё фото","Моё фото")
+						h1.total-title= name
+						small.total-text Личный сайт веб разработчика
+						include ../modules/_social
+						.buttons
+							.button__wrap
+								a(href="works.html" title="Мои работы").button__item Мои работы
+							.button__wrap
+								a(href="about.html" title="Обо мне").button__item Обо мне
+							.button__wrap
+								a(href="blog.html" title="Блог").button__item Блог
+				.cover__back
+					.cover__content
+						h2.title.title--extra Авторизуйтесь
+						form.form.form-home(method="POST",action="")
+							.input__container
+								.form__item
+									input(type='text' name='name' placeholder='Логин' id="form-name" autocomplete='off').form__input
+									label(for='form-name').ico__wrap
+										i.i-user.input__ico
+								.form__item
+									input(name='password' type='password' placeholder="Пароль" id="form-pass" autocomplete='off').form__input
+									label(for='form-pass').ico__wrap
+										i.i-key.input__ico
+								.form__check
+									input(name='checkbox' type='checkbox' id="form-checkbox").form__input.form__checkbox
+									label(for='form-checkbox').form__item__text Я человек
+								span.form__title Вы точно не робот?
+								.form__radio
+									input(name='radio' type='radio' id="form-radio-yes").form__input
+									label(for='form-radio-yes').form__radio__text Да
+								.form__radio
+									input(name='radio' type='radio' id="form-radio-no").form__input
+									label(for='form-radio-no').form__radio__text Не уверен
+							.buttons
+								.button__wrap
+									a(href="#").button__item
+										span.buttons__text На главную
+								.button__wrap
+									button(type="submit").button__item
+										span.buttons__text Войти
+			.copyright.
+				© Полянский Александр | создано с любовью в LoftSchool | 2016

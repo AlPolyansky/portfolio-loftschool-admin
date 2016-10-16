@@ -1,0 +1,58 @@
+extends ../_template
+
+block variables
+  - var title = 'Works'
+
+
+block content
+  include ../modules/_preloader
+  .container
+      include ../modules/_sandwich
+  .wrapper.works-page
+    header.header.header--back-text
+      .container
+        .header__top-line
+          include ../modules/_social
+        .header__content
+          +avatar("avatar.jpg","Моё фото","Моё фото","avatar")
+          h1.title.title--medium Александр Полянский
+          .title-back--header
+            +title-back("portfolio_header","title-back--header__svg")
+          small.title Личный сайт веб разработчика
+      .down-click
+        i.down-click__ico.i-arrow-down
+    .page-content
+      .triangle
+        include ../core/_svg
+      section.s-works
+          .title-back
+            h2.title.title--extra Мои работы
+            +title-back("works_header")
+          include ../modules/_slider
+      section.s-about
+        .container
+          .title-back
+            h2.title.title--extra Что обо мне говорят
+            +title-back("about_header")
+          include ../modules/_recall
+          .cover.cover_s-about
+            .title.title--extra Связаться со мной
+            form(method="",action="#").form.form_about-say
+              .form__item
+                input(type='text' name='name' placeholder='Имя').form__input
+              .form__item
+                input(name='email' type='text' placeholder="Email").form__input
+              .form__item
+                textarea(name='text' placeholder="Ваше сообщение").form__textarea
+              .buttons.buttons_about-me
+                .button__wrap
+                  button(type="submit").button__item
+                    span.buttons__text Отправить
+                .button__wrap
+                  button(type="reset").button__item
+                    span.buttons__text Очистить
+          .up-click
+            i.up-click__ico.i-arrow-up
+        include ../modules/_footer
+    
+
