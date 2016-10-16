@@ -10,5 +10,9 @@
 		"port": 7766,
 		"host": "localhost",
 		"publicRoot": "public"
-	}
+	},
+	"admin" : {
+		"user" : "test",
+		"pass" : "12"
+	} 
 }

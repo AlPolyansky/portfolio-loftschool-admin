@@ -10,6 +10,8 @@ var config = require('./config.json');
 var jsonParser = bodyParser.json();
 var app = express();
 
+app.use(session({ secret: 'keyboard cat', saveUninitialized: true,resave: true}));
+
 // Подключаем шаблонизатор
 
 app.set('view engine', 'pug');
@@ -54,16 +56,24 @@ app.get('/blog.html', function (req, res) {
 
 // Admin page
 app.get('/admin.html', function (req, res) {
-  res.render('pages/admin');
+	sess = req.session;
+	if(sess.pass === config.admin.pass && sess.user === config.admin.user){
+		res.render('pages/admin');
+	}else{
+		res.send('Доступ запрещен')
+	}
 });
 
 
 app.post('/admin',jsonParser, function (req, res){
-	if(req.body.pass == "123"){
-		res.sendStatus(200);
-		var sess = req.session;
+	
+	if(req.body.pass === config.admin.pass){
+		sess = req.session;
+		sess.pass = req.body.pass;
+		sess.user = req.body.user;
+  	res.sendStatus(200);
 	}else{
-		res.status(401);
+		res.sendStatus(403);
 	}
 	
 })

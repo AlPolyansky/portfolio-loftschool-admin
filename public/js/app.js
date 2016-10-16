@@ -461,25 +461,27 @@ var formModule = (function() {
     }
 
     var loginForm = function(){
+
         var xhr = new XMLHttpRequest();
+             xhr.open('POST', '/admin',true)
 
-        xhr.open('POST', '/admin',true)
-
-        var data = {
-            user: document.getElementById('form-name').value,
-            pass: document.getElementById('form-pass').value
-        };
-        xhr.setRequestHeader('Content-type','application/json');
-        xhr.send(JSON.stringify(data));
-
-        xhr.onreadystatechange = function(){
-            if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200){
-                location.href = '/admin.html';
-            }else if(xhr.readyState === XMLHttpRequest.DONE){
-                var text = "Данные не правильные";
-                xhr.abort(createPopUpWindow(text));
+            var data = {
+                user: document.getElementById('form-name').value,
+                pass: document.getElementById('form-pass').value
             };
-        }
+            xhr.setRequestHeader('Content-type','application/json');
+            xhr.send(JSON.stringify(data));;
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200){
+                    location.href = '/admin.html';
+
+                }else if(xhr.readyState === XMLHttpRequest.DONE){
+                    var text = "Данные не правильные";
+                    xhr.abort(createPopUpWindow(text));
+                };
+            }
+       
+        
     }
 
     var formValidation = function(thisElem){
@@ -524,14 +526,14 @@ var formModule = (function() {
                 error.text = "Роботам здесь не место!";
             }
         }
-        if(form.find("[name = password]").length && !error.number){
-            var myPass = "123";
+       /* if(form.find("[name = password]").length && !error.number){
+            var myPass = "1";
             var pass = items.find("[name = password]");
             if(pass.val() !== myPass){
                 error.number = 5;
                 error.text = "Пароль не верный";
             }
-        }
+        }*/
        
         switch (error.number) {
             case 1:
@@ -546,15 +548,10 @@ var formModule = (function() {
             case 4:
                 createPopUpWindow(error.text);
             break;
-            case 5:
-                createPopUpWindow(error.text);
-            break;
             case 0:
                 loginForm();
-                //createPopUpWindow(error.text);
             break;
             default:
-            //alert( 'Я таких значений не знаю' );
         }
 
 
