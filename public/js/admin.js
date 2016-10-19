@@ -34,33 +34,40 @@ var adminModule = (function(){
 
         $button.on('click',function(e){
             e.preventDefault();
-            console.log();
-            var skillObj = {
+            var skillObj = {};
 
-            };
+            var test = {};
 
-            var Skill = function(id,val){
-                this.name = id,
-                this.percent = val
-            }
+            
 
-           $skillItem.each(function(i){
+           $skillGroup.each(function(i){
                 var $this = $(this);
-                var $skillLabel = $this.find('.skill__label');
-                var $skillInput = $this.find('.skill__input');
+                var $skillSection = $this.find('.title--small');
+                var $skillItem = $this.find('.skill__part');
 
-                var skill = $skillLabel.text();
-                var vall = $skillInput.val();
+                var title = $skillSection.text();
+                
+                var itemObj = {};
+                $skillItem.each(function(){
+                    
+                    var item = $(this);
+                    var $skillInput = item.find('.skill__input');
+                    var $skillLabel = item.find('.skill__label');
+                    var skill = $skillLabel.text();
+                    var vall = $skillInput.val() || 0;
 
-                skillObj[i] = new Skill(skill,vall);
+                    itemObj[skill] = vall;
+                })
+                    skillObj[title.toLowerCase()] = itemObj;
 
             })
+           
             var xhr = new XMLHttpRequest;
             xhr.open('POST', '/skills',true);
             xhr.setRequestHeader('Content-type','application/json');
+            console.log(skillObj);
             xhr.send(JSON.stringify(skillObj));
             allInputs.val('');
-            //console.log(xhr.responseText);
             xhr.onreadystatechange = function() {
               if (xhr.readyState != 4) return;
 
@@ -69,7 +76,7 @@ var adminModule = (function(){
               }
 
             }
-        })       
+        })     
     }
 
 

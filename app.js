@@ -138,9 +138,9 @@ app.post('/admin',jsonParser, function (req, res){
 
 app.post('/skills',jsonParser, function(req,res){
 
-	
+	console.log(req.body)
 
-	for (var key in req.body){
+/*	for (var key in req.body){
 		var skills = new Skill({
 			name : req.body[key].name,
 			percent : req.body[key].percent
@@ -151,7 +151,7 @@ app.post('/skills',jsonParser, function(req,res){
 		})
 
 		
-	}	
+	}*/	
 });
 
 
@@ -160,10 +160,29 @@ app.post('/skills',jsonParser, function(req,res){
 // Admin page
 app.get('/admin.html', function (req, res) {
 // Костыль ! Переделать на промисы
+
+	// Пришло из базы
+	//console.log(skills);
 	res.render('pages/admin',{
 
 		section : skills,
-		defaultValue: "0"
+		defaultValue: {
+			frontend : {
+				html : '10',
+				css: '20',
+				js: '30'
+			},
+			backend : {
+				php : '10',
+				node: '20',
+				mongo: '30'
+			},
+			workflow: {
+				git: '40',
+				gulp: '50',
+				bower: '70'
+			}
+		}
 	});
 
 
@@ -204,26 +223,3 @@ app.listen(config.http.port,config.http.host, function () {
   console.log('Example app listening on port ' + config.http.port);
 });
 
-
-
-
-
-/*function test(ms) {
-	return new Promise(function(resolve,reject){
-		setTimeout(function(){
-			resolve();
-		},ms || 1)
-		
-	})
-}
-
-test().then(function(){
-	console.log(1);
-	return test(500)
-}).then(function(){
-	console.log(2);
-	return test(1500)
-}).then(function(){
-	console.log(3);
-	return test(500)
-})*/
