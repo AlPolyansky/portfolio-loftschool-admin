@@ -1,0 +1,15 @@
+.skill
+	h2.title.title--medium Страница «Обо мне»
+	form.skill__form(method="post")
+		each val in section
+			.skill__group
+				h4.title--small!= val.name
+				each i in val.items
+					.skill__part
+						.skill__label__wrap
+							label.skill__label(for="skillGit")!= i
+						.skill__input__wrap
+							input.skill__input#skillGit(name="text" placeholder=defaultValue)
+							span.skill__percent %
+		.button
+			button.button__item(type="submit") Сохранить

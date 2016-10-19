@@ -1,2 +1,23 @@
-body
-	h1 Я админка
+extends ../_admin
+block content
+	.wrapper#admin-panel
+		header.header
+			.container
+				h1.title Панель Администрирования
+				a(href="/" title="Вернуться на сайт").exit-link Вернуться на сайт
+		.tabs
+			ul.tabs__list
+				li.tabs__item.active
+					a.tabs__link(href="#",title="Страница обо мне" data-section="about-me") Обо мне
+				li.tabs__item
+					a.tabs__link(href="#",title="Страница обо мне" data-section="blog") Блог
+				li.tabs__item
+					a.tabs__link(href="#",title="Страница обо мне" data-section="works") Мои работы
+		.content
+			.content__list.container
+				section.content__item.about-me.active-section
+					include ../modules-admin/_skill
+				section.content__item.blog
+					include ../modules-admin/_blog
+				section.content__item.works
+					include ../modules-admin/_works

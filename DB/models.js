@@ -6,3 +6,9 @@ var Post = mongoose.model('Post', {
 	title: String,
 	body: String
 });
+
+
+var Skill = mongoose.model('Skill',{
+	skillName: String,
+	percent: String
+});
