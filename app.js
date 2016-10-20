@@ -36,7 +36,7 @@ app.use('/fonts',express.static(path.join(__dirname, 'public/fonts')));
 // Модели
 
 
-// Сохранение скилов в базу 
+
 
 var skillShema = new Schema({
 	section: {
@@ -58,22 +58,6 @@ var skillShema = new Schema({
 var skillModel = mongoose.model('Skill',skillShema);
 
 
-skills.forEach(function(item){
-	var skill = skillModel({
-		section : item.name,
-		items : Object.keys(item.items).map(i => ({
-			skillName : i,
-			value : 10
-		}))
-
-	})
-	skill.save(function(){
-		//console.log(skill)
-	})
-
-	
-	
-});
 
 
 
@@ -138,7 +122,40 @@ app.post('/admin',jsonParser, function (req, res){
 
 app.post('/skills',jsonParser, function(req,res){
 
-	console.log(req.body)
+	
+	var resultObj = req.body;
+	// Сохранение скилов в базу
+	var test = Object.keys(resultObj);
+	
+	var models = [];
+
+	Object.keys(resultObj).map(section =>({
+		section: section,
+		items: Object.keys(req.body[section]).map(i => ({
+			skillName: i,
+			value: req.body[section][i]
+		}))
+	})).forEach(toSave => models.push(new skillModel(toSave)));
+
+	skillModel.remove({}).then(() =>
+		skillModel.insertMany(models).then(() =>
+			console.log('Сохранено')
+		)
+	);
+
+	//console.log(models);
+/*	return false;
+	resultObj.forEach(function(item){
+	var skill = skillModel({
+		section : item.name,
+		items : Object.keys(item.items).map(i => ({
+			skillName : i,
+			value : 10
+		}))
+
+	})
+	console.log(skill);
+	});*/
 
 /*	for (var key in req.body){
 		var skills = new Skill({
@@ -155,34 +172,16 @@ app.post('/skills',jsonParser, function(req,res){
 });
 
 
-
-
 // Admin page
 app.get('/admin.html', function (req, res) {
 // Костыль ! Переделать на промисы
 
 	// Пришло из базы
-	//console.log(skills);
-	res.render('pages/admin',{
 
+	console.log(skillModel.find({},function(err, items){items}));
+res.render('pages/admin',{
 		section : skills,
-		defaultValue: {
-			frontend : {
-				html : '10',
-				css: '20',
-				js: '30'
-			},
-			backend : {
-				php : '10',
-				node: '20',
-				mongo: '30'
-			},
-			workflow: {
-				git: '40',
-				gulp: '50',
-				bower: '70'
-			}
-		}
+		test : skillModel.find({},function(err, items){}),
 	});
 
 

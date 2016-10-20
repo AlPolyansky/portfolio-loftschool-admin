@@ -1,15 +1,19 @@
+//placeholder=test[index].items[number++].value
+
 .skill
 	h2.title.title--medium Страница «Обо мне»
 	form.skill__form(method="post")
+		h1!= test
 		each val,index in section
+			- var number = 0;
 			.skill__group
 				h4.title--small!= val.name
-				each i,idex in val.items
+				each i in val.items
 					.skill__part
 						.skill__label__wrap
 							label.skill__label(for='skill_' + i)!= i
 						.skill__input__wrap
-							input.skill__input(name="text", id='skill_' + i, placeholder=defaultValue[val.id][idex])
+							input.skill__input(name="text", id='skill_' + i)
 							span.skill__percent %
 		.button
 			button.button__item(type="submit") Сохранить

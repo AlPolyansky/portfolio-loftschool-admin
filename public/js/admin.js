@@ -98,11 +98,47 @@ var adminModule = (function(){
     }
 
 
+    var _setPost = function(){
+        var $blogform = $('.blog__form');
+        var $button = $blogform.find('.button__item');
+
+        $button.on('click',function(e){
+            e.preventDefault();
+            var $this = $(this);
+            var $parentForm = $(this).closest(".blog__form");
+            var $tileInput = $parentForm.find('input').first();
+            var $dateInput = $parentForm.find('input').last();
+            var $textarea = $parentForm.find('textarea');
+
+            var xhrObj = {
+                itemName: $tileInput.val(),
+                itemDate: $dateInput.val(),
+                itemBody: $textarea.val()
+
+            }
+            var xhr = new XMLHttpRequest;
+            xhr.open('POST', '/admin/blog',true);
+            xhr.setRequestHeader('Content-type','application/json');
+            xhr.send(JSON.stringify(xhrObj));
+            //allInputs.val('');
+            xhr.onreadystatechange = function() {
+              if (xhr.readyState != 4) return;
+
+              if (xhr.status == 200) {
+                console.log("Ответ пришел")
+              }
+
+            }
+        })             
+    }
+
+
     return {
         init: function(){
 
             _tabsInit();
             _skillAjax();
+            _setPost();
             
         }
     };
