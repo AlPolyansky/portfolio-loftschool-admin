@@ -37,14 +37,4 @@ route.get('/works.html',(req,res) =>{
 })
 
 
-
-
-
-
-
-/*route.get('/admin.html',(req,res) =>{
-
-res.render('admin')
-})
-*/
 module.exports = route;
