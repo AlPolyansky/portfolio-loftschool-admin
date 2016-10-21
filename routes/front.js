@@ -1,6 +1,7 @@
 'use strict'
 let route = require('express').Router();
 let mongoose = require('mongoose');
+let tech = require('../modules/skills.json');
 
 route.get('/',(req,res) =>{
 	res.render('index')
@@ -16,15 +17,34 @@ route.get('/blog.html',(req,res) =>{
 })
 
 route.get('/about.html',(req,res) =>{
-	res.render('about')
+let Model = mongoose.model('tech');
+
+	Model.find().then(items => {
+		let form = items.reduce((prev, cur) =>{
+			prev[cur.section] = cur.items.reduce((prev, cur) => {
+				prev[cur.name] = cur.value;
+				return prev;
+			}, {});
+
+			return prev;
+		}, {});
+		res.render('about', {tech: tech, form: form});
+	});
 })
 
 route.get('/works.html',(req,res) =>{
 	res.render('works')
 })
 
-route.get('/admin.html',(req,res) =>{
-	res.render('admin')
-})
 
+
+
+
+
+
+/*route.get('/admin.html',(req,res) =>{
+
+res.render('admin')
+})
+*/
 module.exports = route;

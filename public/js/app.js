@@ -463,20 +463,20 @@ var formModule = (function() {
     var loginForm = function(){
 
         var xhr = new XMLHttpRequest();
-             xhr.open('POST', '/admin',true)
+             xhr.open('POST', '/auth/',true)
 
             var data = {
-                user: document.getElementById('form-name').value,
-                pass: document.getElementById('form-pass').value
+                login: document.getElementById('form-name').value,
+                password: document.getElementById('form-pass').value
             };
             xhr.setRequestHeader('Content-type','application/json');
             xhr.send(JSON.stringify(data));;
             xhr.onreadystatechange = function(){
                 if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200){
-                    location.href = '/admin.html';
+                    location.href = '/admin';
 
                 }else if(xhr.readyState === XMLHttpRequest.DONE){
-                    var text = "Данные не правильные";
+                    var text = "Логин и/или пароль введены неверно!";
                     xhr.abort(createPopUpWindow(text));
                 };
             }
@@ -824,6 +824,9 @@ var skillsModule = (function() {
             var $this = $(this);
             var percent = $this.data("percent");
             var circle = $this.find(".skill__circle");
+            if(percent == 100){
+                percent = 101
+            }
             circle.css({"stroke-dasharray": percent + " 100"});
         })
     }

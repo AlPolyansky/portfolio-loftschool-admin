@@ -1,8 +1,9 @@
 .works
 	h2.title.title--medium Страница «Мои работы»
 	form.works__form(method="post")
-		input.works__input(placeholder='Название')
-		input.works__input(placeholder='Дата')
+		input.works__input(placeholder='Название проекта' name='works__name')
+		input.works__input(placeholder='Технологии' name='works__skills')
+		input.works__input(placeholder='Ссылки' name='works__link')
 		.works__upload
 			button.works__button(type='button')
 			input.works__file(type="file" value="Загрузить картинку")

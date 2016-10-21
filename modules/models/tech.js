@@ -10,10 +10,8 @@ let mongoose = require('mongoose');
 					type: String
 				},
 				value : {
-					type: {
-						type: Number,
-						default: 0
-					}
+					type: String,
+					default: 0
 				}
 			}]
 		}

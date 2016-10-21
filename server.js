@@ -8,6 +8,16 @@ let config = require('./config.json');
 let app = express();
 let mongoose = require('./mongoose.js');
 let bodyParser = require('body-parser');
+let session = require('express-session');
+let MongoStore = require('connect-mongo')(session);
+
+app.use(session({
+	secret: 'loftschool',
+	saveUnitialized: false,
+	resave: false,
+	store : new MongoStore({mongooseConnection: mongoose.connection})
+
+}));
 
 app.set('view engine', 'pug');
 app.set('views', path.resolve(`./views/pages/`));
@@ -16,8 +26,11 @@ app.use(express.static(path.resolve(config.http.publicRoot)));
 app.use(bodyParser.json());
 
 //===маршруты===
-//app.use('/admin', require('./routes/admin/about.js'));
-app.use('/admin', require('./routes/admin/blog.js'));
+app.use('/admin', require('./routes/admin/middleware'));
+app.use('/admin', require('./routes/admin/about'));
+app.use('/admin', require('./routes/admin/blog'));
+app.use('/admin', require('./routes/admin/works'));
+app.use('/auth', require('./routes/admin/auth'));
 app.use('/',require('./routes/front.js'));
 //=============
 

@@ -54,7 +54,13 @@ var adminModule = (function(){
                     var $skillInput = item.find('.skill__input');
                     var $skillLabel = item.find('.skill__label');
                     var skill = $skillLabel.text();
-                    var vall = $skillInput.val() || 0;
+                    var vall = $skillInput.val()
+
+                    if(!vall){
+                        vall = $skillInput.attr('placeholder');
+                    }else{
+                        $skillInput.attr('placeholder',vall)
+                    }
 
                     itemObj[skill] = vall;
                 })
@@ -63,9 +69,8 @@ var adminModule = (function(){
             })
            
             var xhr = new XMLHttpRequest;
-            xhr.open('POST', '/skills',true);
+            xhr.open('POST', '/admin/about',true);
             xhr.setRequestHeader('Content-type','application/json');
-            console.log(skillObj);
             xhr.send(JSON.stringify(skillObj));
             allInputs.val('');
             xhr.onreadystatechange = function() {
@@ -85,16 +90,18 @@ var adminModule = (function(){
         var $skill = $('.skill');
         var $skillItem = $skill.find('.skill__part');
         
-
+        /*console.log(obj);
         $skillItem.each(function(i){
             var $this = $(this);
             var $skillLabel = $this.find('.skill__label');
             var $skillInput = $this.find('.skill__input');
+            if($skillInput){
+                $skillInput.eq(i).val(obj[i].percent);
+            }
+            
 
-            $skillInput.eq(i).val(obj[i].percent);
 
-
-        })
+        })*/
     }
 
 
@@ -132,6 +139,36 @@ var adminModule = (function(){
         })             
     }
 
+    var __addWorks = function(){
+        var $form = $('.works__form');
+        var $button = $form.find('.button__item');
+
+        $button.on('click',function(e){
+            e.preventDefault();
+
+            var $this = $(this);
+            var $thisForm = $this.closest($form);
+            var $file = $thisForm.find('.works__file');
+
+            var data = new FormData();
+            data.append('test', '12')
+
+            jQuery.ajax({
+                url: '/admin/works',
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: 'POST',
+                success: function(data){
+                    alert(data);
+                }
+            });
+
+            
+        })
+    }
+
 
     return {
         init: function(){
@@ -139,6 +176,7 @@ var adminModule = (function(){
             _tabsInit();
             _skillAjax();
             _setPost();
+            __addWorks()
             
         }
     };
