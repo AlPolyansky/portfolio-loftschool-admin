@@ -888,7 +888,7 @@ function initMap() {
         disableDefaultUI: true
         });
         var image = {
-              url: base.getImgPath() + "map-marker.png",
+              url: "../img/map-marker.png",
               size: new google.maps.Size(71, 71),
               anchor: new google.maps.Point(17, 40),
               scaledSize: new google.maps.Size(40, 56)
