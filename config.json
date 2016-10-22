@@ -11,8 +11,16 @@
 		"host": "localhost",
 		"publicRoot": "public"
 	},
-	"admin" : {
-		"user" : "test",
-		"pass" : "12"
-	} 
+	"mail" : {
+		"subject" : "Сообщение с сайта портфолио",
+		"smtp" : {
+			"host" : "smtp.yandex.ru",
+			"port" : "465",
+			"secure" : true,
+			"auth" : {
+				"user" : "eclerrrr@yandex.ru",
+				"pass" : "utubx6x5h2"
+			}
+		}
+	}
 }

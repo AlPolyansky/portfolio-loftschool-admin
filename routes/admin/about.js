@@ -27,6 +27,13 @@ route.post('/about',(req,res)=>{
 
 	let Model = mongoose.model('tech');
 	let models = [];
+	if(!Object.keys(req.body).length){
+		return res.json({ message: 'Не удалось сохранить данные!' });
+	}
+/*	if(req.body){
+		console.log('Прошло');
+		return res.json({ error: 'Не удалось сохранить данные!' });
+	}*/
 
 	Object.keys(req.body).map(section => ({
 		section: section,

@@ -11,6 +11,7 @@
     "mongodb": "^2.2.10",
     "mongoose": "^4.6.3",
     "multiparty": "^4.1.2",
+    "nodemailer": "^2.6.4",
     "pug": "^2.0.0-beta6"
   },
   "devDependencies": {},

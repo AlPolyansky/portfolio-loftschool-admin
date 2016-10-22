@@ -31,6 +31,7 @@ app.use('/admin', require('./routes/admin/about'));
 app.use('/admin', require('./routes/admin/blog'));
 app.use('/admin', require('./routes/admin/works'));
 app.use('/auth', require('./routes/admin/auth'));
+app.use('/mail', require('./routes/mail.js'));
 app.use('/',require('./routes/front.js'));
 //=============
 

@@ -14,6 +14,7 @@ var adminModule = (function(){
             var $this = $(this);
             var dataAttr = $this.find(".tabs__link").data('section');
 
+            $this.addClass('active').siblings().removeClass('active')
             $contentItem.filter('.blog');
             $contentItem.filter('.' + dataAttr).addClass('active-section').siblings().removeClass('active-section');
         })
@@ -38,7 +39,7 @@ var adminModule = (function(){
 
             var test = {};
 
-            
+            var target = true;
 
            $skillGroup.each(function(i){
                 var $this = $(this);
@@ -48,23 +49,44 @@ var adminModule = (function(){
                 var title = $skillSection.text();
                 
                 var itemObj = {};
+
+                
+
                 $skillItem.each(function(){
                     
                     var item = $(this);
                     var $skillInput = item.find('.skill__input');
                     var $skillLabel = item.find('.skill__label');
                     var skill = $skillLabel.text();
-                    var vall = $skillInput.val()
+                    var vall = $skillInput.val();
+                    var parse = /^[0-9]*$/;
+                    
+
+
+                    if(vall.length > 3){
+                        target = false;
+                    }
+
+                    if(!parse.test(vall)){
+                        target = false;
+                    }
+                    
 
                     if(!vall){
                         vall = $skillInput.attr('placeholder');
-                    }else{
+                    }else if(target && parse.test(vall)){
                         $skillInput.attr('placeholder',vall)
                     }
 
                     itemObj[skill] = vall;
                 })
+
+                if(target){
                     skillObj[title.toLowerCase()] = itemObj;
+                }else{
+                    skillObj = {};
+                }
+                
 
             })
            
@@ -77,7 +99,7 @@ var adminModule = (function(){
               if (xhr.readyState != 4) return;
 
               if (xhr.status == 200) {
-                setSkills(xhr);
+                popup(JSON.parse(xhr.responseText).message);
               }
 
             }
@@ -89,19 +111,6 @@ var adminModule = (function(){
         var obj = JSON.parse(json.responseText);
         var $skill = $('.skill');
         var $skillItem = $skill.find('.skill__part');
-        
-        /*console.log(obj);
-        $skillItem.each(function(i){
-            var $this = $(this);
-            var $skillLabel = $this.find('.skill__label');
-            var $skillInput = $this.find('.skill__input');
-            if($skillInput){
-                $skillInput.eq(i).val(obj[i].percent);
-            }
-            
-
-
-        })*/
     }
 
 
@@ -127,12 +136,12 @@ var adminModule = (function(){
             xhr.open('POST', '/admin/blog',true);
             xhr.setRequestHeader('Content-type','application/json');
             xhr.send(JSON.stringify(xhrObj));
-            //allInputs.val('');
+            $('.blog__input').val('');
             xhr.onreadystatechange = function() {
               if (xhr.readyState != 4) return;
 
               if (xhr.status == 200) {
-                console.log("Ответ пришел")
+                popup(JSON.parse(xhr.responseText).message)
               }
 
             }
@@ -169,10 +178,23 @@ var adminModule = (function(){
         })
     }
 
+    var popup = function(text){
+        $('<div class="popup">\
+            <div class="popup__window">\
+                <div class="popup__text">'+ text +'</div>\
+                <button type="button" class="popup__button">Закрыть</button>\
+            <div>\
+        <div>').appendTo($('body'));
+
+        $(".popup__button").on('click',function(){
+            $(".popup").remove();
+        })
+
+    }
+
 
     return {
         init: function(){
-
             _tabsInit();
             _skillAjax();
             _setPost();
