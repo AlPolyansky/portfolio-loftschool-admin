@@ -1,21 +1,22 @@
+'use strict'
+
 let mongoose = require('mongoose');
-	Schema = mongoose.Schema,
-	WorkSchema = new Schema({
+var WorkSchema = new mongoose.Schema({
 		name: {
 			type: String,
-			require: [true, 'Укажите имя проекта']
+			require: [true, 'Укажите заголовок статьи']
 		},
 		tech: {
 			type: String,
-			require: [true,'Укажите используемые технологии']
+			require: [true,'Укажите содержимое статьи']
 		},
 		link: {
 			type: String,
-			require: [true, 'Укажите ссылку на проекты']
+			require: [true,'Укажите дату публикации']
 		},
 		pictures : {
 			type: [String]
 		}
-	});
+}, {strict: false});
 
-mongoose.model('work',TechSchema);
+mongoose.model('work',WorkSchema);

@@ -23,7 +23,8 @@ app.set('view engine', 'pug');
 app.set('views', path.resolve(`./views/pages/`));
 
 app.use(express.static(path.resolve(config.http.publicRoot)));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '5mb'}));
+app.use(bodyParser.urlencoded({limit: '5mb'}));
 
 //===маршруты===
 app.use('/admin', require('./routes/admin/middleware'));

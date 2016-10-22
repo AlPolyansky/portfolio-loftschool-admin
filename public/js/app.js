@@ -635,6 +635,11 @@ var sliderModule = (function() {
         var up = "slide--up";
         var slideShow = "slide--show";
 
+        var sliderActiveElementsInit = (function (){
+            $sliderItems.first().addClass(active);
+            $deskContent.first().addClass("active__desk__content");
+        })();
+
 
 
 

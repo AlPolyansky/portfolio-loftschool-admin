@@ -1,6 +1,6 @@
 .works
 	h2.title.title--medium Страница «Мои работы»
-	form.works__form(method="post")
+	form.works__form(method="post" enctype="multipart/form-data")
 		input.works__input(placeholder='Название проекта' name='works__name')
 		input.works__input(placeholder='Технологии' name='works__skills')
 		input.works__input(placeholder='Ссылки' name='works__link')

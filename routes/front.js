@@ -33,7 +33,11 @@ let Model = mongoose.model('tech');
 })
 
 route.get('/works.html',(req,res) =>{
-	res.render('works')
+	let Model = mongoose.model('work');
+
+	Model.find().then(items => {
+		res.render('works', {items: items});
+	});
 })
 
 

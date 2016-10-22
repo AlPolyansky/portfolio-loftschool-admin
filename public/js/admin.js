@@ -157,22 +157,22 @@ var adminModule = (function(){
 
             var $this = $(this);
             var $thisForm = $this.closest($form);
-            var $file = $thisForm.find('.works__file');
+            var $file = $thisForm.find('.works__file')[0].files[0];
+            var $workName = $thisForm.find('[name="works__name"]');
+            var $workTech = $thisForm.find('[name="works__skills"]');
+            var $workLink = $thisForm.find('[name="works__link"]');
 
-            var data = new FormData();
-            data.append('test', '12')
+            var formData = new FormData(); 
+            formData.append("workPicture",$file)
+            formData.append("workName",$workName.val());
+            formData.append("workTech",$workTech.val());
+            formData.append("workLink",$workLink.val());
 
-            jQuery.ajax({
-                url: '/admin/works',
-                data: data,
-                cache: false,
-                contentType: false,
-                processData: false,
-                type: 'POST',
-                success: function(data){
-                    alert(data);
-                }
-            });
+            
+
+            var xhr = new XMLHttpRequest;
+            xhr.open('POST', '/admin/works',true);
+            xhr.send(formData);
 
             
         })
