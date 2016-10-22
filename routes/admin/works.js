@@ -16,7 +16,7 @@ route.post('/works',(req,res)=>{
 	let form = new multiparty.Form();
 	form.parse(req, function(err, fields, file){
 		if(err){
-			return res.json({ error: err.message || err})
+			return res.json({ error: "Ошибка при загрузке"})
 		}
 	let Model = mongoose.model('work');
 		let item = new Model({
@@ -38,7 +38,7 @@ route.post('/works',(req,res)=>{
 			throw new Error(Object.keys(e.errors).map(key => e.errors[key].message).join(', '));
 		}).then(
 			i => res.json({ message : "Запись успешно добавлена"}),
-			e => res.json({ error : e.message})
+			e => res.json({ message : "Ошибка при загрузке"})
 		);
 
 	});

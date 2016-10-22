@@ -173,6 +173,15 @@ var adminModule = (function(){
             var xhr = new XMLHttpRequest;
             xhr.open('POST', '/admin/works',true);
             xhr.send(formData);
+            $('.works__form input').val('');
+            xhr.onreadystatechange = function() {
+              if (xhr.readyState != 4) return;
+
+              if (xhr.status == 200) {
+                popup(JSON.parse(xhr.responseText).message)
+              }
+
+            }
 
             
         })
